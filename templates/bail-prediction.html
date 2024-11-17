@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bail Prediction System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Raleway', sans-serif;
+            background-color: #4338CA; /* Changed background color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            line-height: 1.25;
+            letter-spacing: 1px;
+            margin-bottom: 150px;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            gap: 20px;
+        }
+
+        h1 i {
+            font-size: 3rem;
+            color: #333;
+        }
+
+        h2{
+            margin-top: 50px;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .dropzone {
+            border: 2px dashed #6c5ce7;
+            border-radius: 12px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #333;
+            font-size: 18px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .dropzone input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .upload-success {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #28a745;
+            font-size: 18px;
+            position: absolute;
+        }
+
+        .upload-success i {
+            margin-right: 10px;
+        }
+
+        .predict-btn {
+            background-color: #ff6b81;
+            border-color: #ff6b81;
+            color: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 18px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            text-align: center; /* Center button content */
+        }
+
+        .predict-btn:hover {
+            background-color: #ff3366;
+            border-color: #ff3366;
+        }
+
+        .footer {
+            background-color: #2d3436;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* Looping animation */
+        @keyframes loopAnimation {
+            0% {
+                transform: scale(1);
+            }
+
+            25% {
+                transform: scale(1.05);
+            }
+
+            50% {
+                transform: scale(1);
+            }
+
+            75% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Apply loop animation when file is selected */
+        .loop {
+            animation: loopAnimation 1.5s infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-4xl md:text-4xl font-semibold leading-tight tracking-wide mb-4">
+            <i class="fas fa-gavel"></i> Bail Prediction System
+        </h1>
+        <h2 class="text-center"><i class="fas fa-file-upload"></i> Upload JSON File</h2>
+        <form id="uploadForm" action="#" method="POST">
+            <div class="dropzone" id="dropzone">
+                <input type="file" id="fileInput" name="file" class="hidden" accept=".json" required />
+                <label for="fileInput" class="cursor-pointer" id="fileLabel">Drag and drop or click to upload</label>
+                <div class="upload-success" id="uploadSuccess" style="display: none;">
+                    <i class="fas fa-check-circle"></i> DOCUMENT UPLOADED
+                </div>
+            </div>
+
+            <!-- Predict Button -->
+            <div class="predict-btn" id="predictBtn">
+                Predict Bail
+            </div>
+        </form>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 | Bail Prediction System</p>
+    </div>
+
+    <script>
+        // File input change event to show "UPLOADED" message
+        document.getElementById('fileInput').addEventListener('change', function () {
+            if (this.files && this.files.length > 0) {
+                document.getElementById('fileLabel').style.display = 'none';
+                document.getElementById('uploadSuccess').style.display = 'flex';
+
+                // Apply loop animation to the dropzone
+                document.getElementById('dropzone').classList.add('loop');
+
+                // Remove loop animation after a few seconds (allowing it to complete)
+                setTimeout(function () {
+                    document.getElementById('dropzone').classList.remove('loop');
+                }, 1500); // Animation duration
+            }
+        });
+
+        // Predict button click event
+        document.getElementById('predictBtn').addEventListener('click', function () {
+            // Check if the file is selected before submitting
+            var fileInput = document.getElementById('fileInput');
+            if (fileInput.files.length > 0) {
+                document.getElementById('uploadForm').dispatchEvent(new Event('submit'));
+            } else {
+                alert('Please upload a file first!');
+            }
+        });
+
+        // Upload form submission handler
+        document.getElementById('uploadForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            var fileInput = document.getElementById('fileInput');
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var jsonContent = JSON.parse(e.target.result);
+
+                // Sending the content to the server
+                fetch('/process', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(jsonContent)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.redirect) {
+                            window.location.href = data.redirect;
+                        } else {
+                            alert("Error: " + data.error);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            };
+            reader.readAsText(file);
+        });
+    </script>
+
+</body>
+
+</html>

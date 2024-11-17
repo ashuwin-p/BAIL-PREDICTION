@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bail Prediction</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&family=Quicksand&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .animate-fadeIn {
+            animation: fadeIn 2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .scroll-smooth {
+            scroll-behavior: smooth;
+        }
+
+        /* Disable animation on hover */
+        a:hover {
+            animation: none !important;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800 scroll-smooth">
+
+    <!-- Header Section -->
+    <header class="bg-indigo-700 text-white py-20 text-center animate-fadeIn">
+        <div class="container mx-auto">
+            <h1 class="text-4xl md:text-6xl font-semibold leading-tight tracking-wide mb-4">Bail Prediction System</h1>
+            <p class="text-lg md:text-xl font-light mb-8">Harnessing the power of AI & NLP to streamline the bail
+                decision process</p>
+
+            <!-- Learn More Button -->
+            <a href="{{ url_for('about') }}"
+                class="bg-indigo-500 text-white py-3 px-8 rounded-lg text-lg hover:bg-indigo-600 transition duration-300 inline-block mb-4">
+                Learn More
+            </a>
+
+            <a href="{{ url_for('bail_prediction') }}"
+                class="bg-yellow-500 text-white py-4 px-10 rounded-lg text-xl font-bold hover:bg-yellow-600 transition duration-300 animate-pulse block mx-auto mt-4 w-max font-raleway">
+                Use the Bail Prediction Application
+            </a>
+
+
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section class="bg-indigo-50 py-16">
+        <div class="container mx-auto px-5 md:px-20 text-center animate-fadeIn">
+            <h2 class="text-3xl font-bold text-indigo-700 mb-8">Key Features of the Bail Prediction System</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
+                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition">
+                    <i class="fas fa-balance-scale text-indigo-600 text-4xl mb-4"></i>
+                    <h3 class="text-xl font-semibold text-indigo-700 mb-4">Legal Case Prediction</h3>
+                    <p class="text-gray-700">AI-driven predictions based on legal data and case history to provide the
+                        best possible outcome recommendations.</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition">
+                    <i class="fas fa-clock text-indigo-600 text-4xl mb-4"></i>
+                    <h3 class="text-xl font-semibold text-indigo-700 mb-4">Time Efficiency</h3>
+                    <p class="text-gray-700">Speed up decision-making in bail hearings by reducing the time spent on
+                        manual case review.</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition">
+                    <i class="fas fa-language text-indigo-600 text-4xl mb-4"></i>
+                    <h3 class="text-xl font-semibold text-indigo-700 mb-4">Hindi Language Support</h3>
+                    <p class="text-gray-700">Designed to cater to India's diverse legal systems by supporting Hindi,
+                        making it accessible to a wider range of users.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="bg-indigo-700 text-white py-16 text-center animate-fadeIn">
+        <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Join Us in Revolutionizing the Legal System</h2>
+            <p class="text-lg md:text-xl mb-8">Be a part of the future of legal tech. Help bring speed and accuracy to
+                the justice system.</p>
+            <a href="mailto:ashuwin2210335@ssn.edu.in"
+                class="bg-indigo-500 py-3 px-8 rounded-lg text-lg hover:bg-indigo-600 transition duration-300">Contact
+                Us</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-6 text-center">
+        <div class="container mx-auto">
+            <p class="text-sm">&copy; 2024 Bail Predict. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+</body>
+
+</html>
